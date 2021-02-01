@@ -19,7 +19,7 @@ public class UserEntity {
     private String firstName;
 
     @Column (name = "LAST_NAME")
-    private String leastName;
+    private String lastName;
 
     @Column (name = "ADDRESS_CITY")
     private String addressCity;

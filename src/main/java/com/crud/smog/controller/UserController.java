@@ -1,8 +1,13 @@
 package com.crud.smog.controller;
 
+import com.crud.smog.domain.UserDto;
+import com.crud.smog.mapper.UserMapper;
+import com.crud.smog.service.DbUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -11,29 +16,45 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/v1/smog")
 public class UserController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private DbUserService dbUserService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/user/{userId}")
-    public String getUser (@PathVariable("userId") Long userId) {
-        return "getUser (userId)";
+    public UserDto getUser(@PathVariable("userId") Long userId) throws UserNotFoundException {
+        LOGGER.info("UserController -> getUser; user's Id:" + userId);
+        return userMapper.mapToUserDto(dbUserService.getUser(userId).orElseThrow(UserNotFoundException::new));
     }
+
     @RequestMapping(method = RequestMethod.GET, value = "/user/")
-    public List<String> getUsers () {
-        List<String> list = new ArrayList<>();
-        list.add("User1");
-        list.add("User2");
-        list.add("User3");
-        return list;
+    public List<UserDto> getUsers() {
+        LOGGER.info("UserController -> getUsers");
+        return userMapper.mapToUserListDto(dbUserService.getListOfUsers());
     }
-    @RequestMapping(method = RequestMethod.DELETE, value = "/user/deleteUser/{userId}"/*{userId}*/)
-    public String deleteUser (@PathVariable("userId") Long userId) {
-        return "deleteUser";
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/user/deleteUser/{userId}")
+    public void deleteUser(@PathVariable("userId") Long userId) {
+        LOGGER.info("UserController -> deleteUser; user's Id:" + userId);
+        dbUserService.deleteUser(userId);
     }
+
     @RequestMapping(method = RequestMethod.PUT, value = "/user/updateUser", consumes = APPLICATION_JSON_VALUE)
-    public String updateUser () {
-        return "updateUser";
+    public UserDto updateUser(@RequestBody UserDto userDto) {
+        LOGGER.info("UserController -> updated old User: " + "\n" + "user's first name: " + userDto.getFirstName() + "\n" +
+                "user's last name: " + userDto.getLastName() + "\n" +
+                "user's city address: " + userDto.getAddressCity() + "\n" +
+                "user's street address: " + userDto.getAddressStreet());
+        return userMapper.mapToUserDto(dbUserService.saveUserEntity(userMapper.mapToUser(userDto)));
     }
+
     @RequestMapping(method = RequestMethod.POST, value = "/user/createUser", consumes = APPLICATION_JSON_VALUE)
-    public String createUser () {
-        return "createUser";
+    public void createUser(@RequestBody UserDto userDto) {
+        dbUserService.saveUserEntity(userMapper.mapToUser(userDto));
+        LOGGER.info("UserController -> created new User: " + "\n" + "user's first name: " + userDto.getFirstName() + "\n" +
+                "user's last name: " + userDto.getLastName() + "\n" +
+                "user's city address: " + userDto.getAddressCity() + "\n" +
+                "user's street address: " + userDto.getAddressStreet());
     }
 }
