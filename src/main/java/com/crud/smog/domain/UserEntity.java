@@ -26,4 +26,7 @@ public class UserEntity {
 
     @Column (name = "ADRRESS_STREET")
     private String addressStreet;
+
+    @Column (name = "ADRRESS_PROVINCE")
+    private String addressProvince;
 }

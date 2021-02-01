@@ -15,7 +15,8 @@ public class UserMapper {
                 userDto.getFirstName(),
                 userDto.getLastName(),
                 userDto.getAddressCity(),
-                userDto.getAddressStreet());
+                userDto.getAddressStreet(),
+                userDto.getAddressProvince());
     }
     public UserDto mapToUserDto (final UserEntity userEntity) {
         return new UserDto(
@@ -23,7 +24,8 @@ public class UserMapper {
                 userEntity.getFirstName(),
                 userEntity.getLastName(),
                 userEntity.getAddressCity(),
-                userEntity.getAddressStreet());
+                userEntity.getAddressStreet(),
+                userEntity.getAddressProvince());
     }
     public List<UserDto> mapToUserListDto (final List<UserEntity> usersList) {
         return usersList.stream()
@@ -31,7 +33,8 @@ public class UserMapper {
                                        e.getFirstName(),
                                        e.getLastName(),
                                        e.getAddressCity(),
-                                       e.getAddressStreet()))
+                                       e.getAddressStreet(),
+                                       e.getAddressProvince()))
                 .collect(Collectors.toList());
     }
 }

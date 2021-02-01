@@ -13,4 +13,5 @@ public class UserDto {
     private String lastName;
     private String addressCity;
     private String addressStreet;
+    private String addressProvince;
 }
