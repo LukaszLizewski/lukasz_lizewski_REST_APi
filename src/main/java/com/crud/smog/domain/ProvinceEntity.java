@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 import javax.persistence.*;
 
 @AllArgsConstructor
@@ -15,12 +16,12 @@ public class ProvinceEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "PROVINCE_NAME")
+    @Column(name = "PROVINCE_NAME", nullable = false)
     private String provinceName;
 
-    @Column(name = "PROVINCE_LONGITUDE")
+    @Column(name = "PROVINCE_LONGITUDE", nullable = false)
     private double centralLongitude;
 
-    @Column(name = "PROVINCE_LATITUDE")
+    @Column(name = "PROVINCE_LATITUDE", nullable = false)
     private double centralLatitude;
 }

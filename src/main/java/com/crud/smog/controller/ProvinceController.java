@@ -1,7 +1,6 @@
 package com.crud.smog.controller;
 
 import com.crud.smog.domain.ProvinceDto;
-import com.crud.smog.domain.UserDto;
 import com.crud.smog.mapper.ProvinceMapper;
 import com.crud.smog.service.DbProvinceService;
 import org.slf4j.Logger;

@@ -2,6 +2,7 @@ package com.crud.smog.mapper;
 
 import com.crud.smog.domain.UserDto;
 import com.crud.smog.domain.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
+    @Autowired
+    ProvinceMapper provinceMapper;
     public UserEntity mapToUser (final UserDto userDto) {
         return new UserEntity(
                 userDto.getId(),

@@ -1,9 +1,7 @@
 package com.crud.smog.service;
 
 import com.crud.smog.domain.ProvinceEntity;
-import com.crud.smog.domain.UserEntity;
 import com.crud.smog.repository.ProvinceRepository;
-import com.crud.smog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

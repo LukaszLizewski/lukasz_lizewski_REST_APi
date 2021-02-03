@@ -56,5 +56,6 @@ public class UserController {
                 "user's last name: " + userDto.getLastName() + "\n" +
                 "user's city address: " + userDto.getAddressCity() + "\n" +
                 "user's street address: " + userDto.getAddressStreet());
+
     }
 }
