@@ -2,11 +2,16 @@ package com.crud.smog.controller;
 
 import com.crud.smog.domain.UserDto;
 import com.crud.smog.mapper.UserMapper;
+import com.crud.smog.service.DbManager;
 import com.crud.smog.service.DbUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import java.util.List;
 
@@ -50,12 +55,16 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/user/createUser", consumes = APPLICATION_JSON_VALUE)
-    public void createUser(@RequestBody UserDto userDto) {
+    public void createUser(@RequestBody UserDto userDto) throws SQLException {
         dbUserService.saveUserEntity(userMapper.mapToUser(userDto));
         LOGGER.info("UserController -> created new User: " + "\n" + "user's first name: " + userDto.getFirstName() + "\n" +
                 "user's last name: " + userDto.getLastName() + "\n" +
                 "user's city address: " + userDto.getAddressCity() + "\n" +
                 "user's street address: " + userDto.getAddressStreet());
+        DbManager dbManager = DbManager.getInstance();
+        String sqlUpdate = "CALL lukasz_lizewski_api.UpdateUsers();";
+        Statement statement = dbManager.getConnection().createStatement();
+        statement.executeUpdate(sqlUpdate);
 
     }
 }
