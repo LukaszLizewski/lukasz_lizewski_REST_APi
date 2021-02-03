@@ -27,7 +27,7 @@ public class UserEntity {
     @Column (name = "ADRRESS_STREET")
     private String addressStreet;
 
-    @Column (name = "ADRRESS_PROVINCE")
+    @Column (name = "ADDRESS_PROVINCE")
     private String addressProvince;
 
     public UserEntity(Long id, String firstName, String lastName, String addressCity, String addressStreet, String addressProvince) {
