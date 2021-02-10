@@ -1,7 +1,7 @@
 package com.crud.smog.service;
 
+import com.crud.smog.config.DbConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 import java.sql.Connection;
@@ -9,11 +9,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+
 public class DbManager {
-    @Autowired
-    private DbConfig dbConfig;
     private Connection conn;
     private static DbManager dbManagerInstance;
+    @Autowired
+    private DbConfig dbConfig;
 
     private DbManager() throws SQLException {
         Properties connectionProps = new Properties ();
@@ -32,3 +33,4 @@ public class DbManager {
         return conn;
     }
 }
+

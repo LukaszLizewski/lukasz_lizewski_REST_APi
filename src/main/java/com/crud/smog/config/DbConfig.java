@@ -1,11 +1,11 @@
-package com.crud.smog.service;
+package com.crud.smog.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Getter
-@Component // This component doesnt work need to write down data manually
+@Component
 public class DbConfig {
     @Value("${sql.data.username}")
     private String userName;

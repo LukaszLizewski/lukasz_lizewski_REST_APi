@@ -46,25 +46,23 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/user/updateUser", consumes = APPLICATION_JSON_VALUE)
-    public UserDto updateUser(@RequestBody UserDto userDto) {
-        LOGGER.info("UserController -> updated old User: " + "\n" + "user's first name: " + userDto.getFirstName() + "\n" +
-                "user's last name: " + userDto.getLastName() + "\n" +
-                "user's city address: " + userDto.getAddressCity() + "\n" +
-                "user's street address: " + userDto.getAddressStreet());
+    public UserDto updateUser(@RequestBody UserDto userDto) throws SQLException {
+        upDateProvince();
+        LOGGER.info("UserController -> updateUser; user's Id:" + userDto.getId());
         return userMapper.mapToUserDto(dbUserService.saveUserEntity(userMapper.mapToUser(userDto)));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/user/createUser", consumes = APPLICATION_JSON_VALUE)
-    public void createUser(@RequestBody UserDto userDto) throws SQLException {
+    public void createUser(@RequestBody UserDto userDto) {
         dbUserService.saveUserEntity(userMapper.mapToUser(userDto));
-        LOGGER.info("UserController -> created new User: " + "\n" + "user's first name: " + userDto.getFirstName() + "\n" +
-                "user's last name: " + userDto.getLastName() + "\n" +
-                "user's city address: " + userDto.getAddressCity() + "\n" +
-                "user's street address: " + userDto.getAddressStreet());
+        //upDateProvince(); //update table with id of provinces
+        LOGGER.info("UserController -> createUser; user's Id:" + userDto.getId());
+    }
+
+    private void upDateProvince() throws SQLException { // tę metodę przenieść do innej klasy
         DbManager dbManager = DbManager.getInstance();
         String sqlUpdate = "CALL lukasz_lizewski_api.UpdateUsers();";
         Statement statement = dbManager.getConnection().createStatement();
         statement.executeUpdate(sqlUpdate);
-
     }
 }
