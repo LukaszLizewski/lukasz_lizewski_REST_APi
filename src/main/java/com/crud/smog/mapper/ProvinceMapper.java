@@ -39,7 +39,7 @@ public class ProvinceMapper {
                 provinceEntity.getLongitudeSW(),
                 provinceEntity.getLatitudeSW());
     }
-    public List<ProvinceDto> mapToProvinceListDto (final List<ProvinceEntity> provinceList) {
+        public List<ProvinceDto> mapToProvinceListDto (final List<ProvinceEntity> provinceList) {
         return provinceList.stream()
                 .map(e->new ProvinceDto(e.getId(),
                         e.getProvinceName(),
