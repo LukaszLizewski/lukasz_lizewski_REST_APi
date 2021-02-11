@@ -34,6 +34,8 @@ public class Engine {
     @Autowired
     private AirClient airClient;
 
+
+
     protected UserEntity getUserEntity(Long userId) {
         return userRepository.retrieveUserById(userId);
     }
@@ -49,7 +51,7 @@ public class Engine {
         return resultLat + "," + resultLon;
     }
 
-    protected void engine(String provinceName) {
+    protected String engine(String provinceName) {
         ProvinceEntity province = getProvinceEntity(provinceName);
         List<AirStation> list = airMapper.mapToListAirStation(airClient.getStations());
         List<AirStation> filteredList = getFilteredStations(list, province.getLatitudeNW(), province.getLatitudeSW(), province.getLongitudeSE(), province.getLongitudeSW());
@@ -62,24 +64,30 @@ public class Engine {
         for (AirStation station: filteredList) {
             map.put(station,airMapper.mapToAirIndex(airClient.getIndex(station.getId())));
         }
-        for (Map.Entry<AirStation, AirIndex> entry : map.entrySet()){
-            System.out.println(entry.getKey().getId());
-            System.out.println(entry.getValue().getStIndexLevel().getIndexLevelName());
-            System.out.println(entry.getKey().getStationName());
 
+
+
+        String resultUrl="";
+        double [][] pointsTable = new double [8][2];
+
+        for (Map.Entry<AirStation, AirIndex> entryUrl : map.entrySet()){
+            System.out.println(entryUrl.getKey().getId());
+            System.out.println(entryUrl.getValue().getStIndexLevel().getIndexLevelName());
+            System.out.println(entryUrl.getKey().getStationName());
+
+            double centerLat = entryUrl.getKey().getGegrLat();
+            double centerLon = entryUrl.getKey().getGegrLon();
+            double radius = 0.5;
+            resultUrl +="&path=color:0x00000000|weight:5|fillcolor:0xFFFF0033";
+            for (int i=0; i<8; i++){
+                pointsTable[i][0]= Math.cos((i*45.0+22.5)/180*Math.PI)*radius+centerLon;
+                pointsTable[i][1]= Math.sin((i*45.0+22.5)/180*Math.PI)*radius*0.4+centerLat;
+                System.out.println("table [" + i + "][0]" +pointsTable[i][0]);
+                System.out.println("table [" + i + "][1]"+pointsTable[i][1]);
+                resultUrl += "|"+ pointsTable[i][1]+","+pointsTable[i][0];
+            }
         }
-        double centerH = 50.0;
-        double centerV = 35.0;
-        double ramie = 5;
-
-        double [][] table = new double [8][2];
-        for (int i=0; i<8; i++){
-            table[i][0]= Math.cos((i*45.0+22.5)/180*Math.PI)*ramie+centerH;
-            table[i][1]= Math.sin((i*45.0+22.5)/180*Math.PI)*ramie+centerV;
-            System.out.println("table [" + i + "][0]" +table[i][0]);
-            System.out.println("table [" + i + "][1]"+table[i][1]);
-        }
-
+        return resultUrl;
     }
 
 

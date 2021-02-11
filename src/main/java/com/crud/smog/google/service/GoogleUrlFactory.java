@@ -27,13 +27,14 @@ public class GoogleUrlFactory {
     private static final String SIZE = "1000x400";
 
     public URI getUserUrl(Long userId) {
-        engine.engine(engine.getUserEntity(userId).getAddressProvince());
+
         return UriComponentsBuilder.fromHttpUrl(googleConfig.getGoogleApiEndpoint())
                 .queryParam("key", googleConfig.getGoogleApiKey())
                 .queryParam("center", engine.getProvinceCenter(engine.getUserEntity(userId).getAddressProvince()))
                 .queryParam("zoom", ZOOM)
                 .queryParam("size", SIZE)
                 .queryParam("scale", SCALE)
+                .query(engine.engine(engine.getUserEntity(userId).getAddressProvince()))
                 .build().encode().toUri();
     }
 
