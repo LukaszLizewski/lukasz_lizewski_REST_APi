@@ -2,10 +2,16 @@ package com.crud.smog.repository;
 
 import com.crud.smog.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
+@Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Override
     UserEntity save (UserEntity userEntity);
@@ -15,4 +21,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAll ();
     @Override
     void deleteById (Long id);
+    @Query
+    UserEntity retrieveUserById(@Param("USERID") Long userId);
 }

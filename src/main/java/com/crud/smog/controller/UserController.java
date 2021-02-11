@@ -56,7 +56,7 @@ public class UserController {
     public void createUser(@RequestBody UserDto userDto) {
         dbUserService.saveUserEntity(userMapper.mapToUser(userDto));
         //upDateProvince(); //update table with id of provinces
-        LOGGER.info("UserController -> createUser; user's Id:" + userDto.getId());
+        LOGGER.info("UserController -> createUser");
     }
 
     private void upDateProvince() throws SQLException { // tę metodę przenieść do innej klasy

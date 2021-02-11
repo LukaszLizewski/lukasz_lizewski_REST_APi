@@ -8,7 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @Component
-public class UrlFactory {
+public class AirUrlFactory {
     @Autowired
     private AirConfig airConfig;
     public URI getUrlFindAll() {

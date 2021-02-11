@@ -6,6 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@NamedNativeQuery(
+        name = "UserEntity.retrieveUserById",
+        query = "SELECT * FROM USERS WHERE ID=:USERID",
+        resultClass = UserEntity.class
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
