@@ -7,5 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class AirIndex {
     private Long id;
-    private AirStationIndexDto stIndexLevel;
+    private AirStationIndex stIndexLevel;
 }

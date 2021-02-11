@@ -1,7 +1,6 @@
 package com.crud.smog.mapper;
 
-import com.crud.smog.air.domain.AirStation;
-import com.crud.smog.air.domain.AirStationDto;
+import com.crud.smog.air.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,5 +22,11 @@ public class AirMapper {
                         e.getGegrLat(),
                         e.getGegrLon()))
                 .collect(Collectors.toList());
+    }
+    public AirIndex mapToAirIndex (AirIndexDto airIndexDto) {
+        return new AirIndex(airIndexDto.getId(),new AirStationIndex(airIndexDto.getStIndexLevel().getId(),airIndexDto.getStIndexLevel().getIndexLevelName()));
+    }
+    public AirIndexDto mapToAirIndexDto (AirIndexDto airIndex) {
+        return new AirIndexDto(airIndex.getId(),new AirStationIndexDto(airIndex.getStIndexLevel().getId(),airIndex.getStIndexLevel().getIndexLevelName()));
     }
 }
