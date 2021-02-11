@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
     private Long id;
@@ -15,12 +15,4 @@ public class UserDto {
     private String addressStreet;
     private String addressProvince;
 
-    public UserDto(Long id, String firstName, String lastName, String addressCity, String addressStreet, String addressProvince) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.addressCity = addressCity;
-        this.addressStreet = addressStreet;
-        this.addressProvince = addressProvince;
-    }
 }

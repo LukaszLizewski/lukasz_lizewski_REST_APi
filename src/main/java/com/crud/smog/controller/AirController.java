@@ -18,7 +18,7 @@ public class AirController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/station")
     public List<AirStationDto> getStations() {
-        return airService.getStations();
+        return airService.getAllStations();
     }
     @RequestMapping(method = RequestMethod.GET, value = "/station/{stationId}")
     public AirIndexDto getStations(@PathVariable("stationId") Long stationId) throws AirNotFoundException {

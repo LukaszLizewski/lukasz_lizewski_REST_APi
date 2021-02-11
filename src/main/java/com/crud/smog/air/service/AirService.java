@@ -18,7 +18,7 @@ public class AirService {
     @Autowired
     private AirMapper airMapper;
 
-    public List<AirStationDto> getStations() {
+    public List<AirStationDto> getAllStations() {
         List<AirStation> list = airMapper.mapToListAirStation(airClient.getStations());
         List<AirStation> filteredList = list.stream()
                 .filter(e->e.getGegrLat()>=51.8 && e.getGegrLat()<=52.1)
