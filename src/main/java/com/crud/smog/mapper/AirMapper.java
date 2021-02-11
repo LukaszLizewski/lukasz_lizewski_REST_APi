@@ -1,7 +1,7 @@
 package com.crud.smog.mapper;
 
-import com.crud.smog.domain.AirStation;
-import com.crud.smog.domain.AirStationDto;
+import com.crud.smog.air.domain.AirStation;
+import com.crud.smog.air.domain.AirStationDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

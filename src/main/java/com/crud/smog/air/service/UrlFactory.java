@@ -15,4 +15,8 @@ public class UrlFactory {
         return UriComponentsBuilder.fromHttpUrl(airConfig.getAirApiEndpointStation() + "/findAll")
                 .build().encode().toUri();
     }
+    public URI getIndex(Long stationId) {
+        return UriComponentsBuilder.fromHttpUrl(airConfig.getAirApiEndpointAqindex() + "/getIndex/" +stationId)
+                .build().encode().toUri();
+    }
 }

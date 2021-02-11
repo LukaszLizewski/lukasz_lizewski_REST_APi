@@ -11,7 +11,7 @@ import java.util.Properties;
 
 
 public class DbManager {
-    private Connection conn;
+    private static Connection conn;
     private static DbManager dbManagerInstance;
     @Autowired
     private DbConfig dbConfig;

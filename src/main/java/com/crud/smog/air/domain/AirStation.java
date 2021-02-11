@@ -1,4 +1,4 @@
-package com.crud.smog.domain;
+package com.crud.smog.air.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

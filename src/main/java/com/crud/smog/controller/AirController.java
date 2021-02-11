@@ -1,12 +1,10 @@
 package com.crud.smog.controller;
 
 import com.crud.smog.air.service.AirService;
-import com.crud.smog.domain.AirStationDto;
+import com.crud.smog.air.domain.AirIndexDto;
+import com.crud.smog.air.domain.AirStationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +18,10 @@ public class AirController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/station")
     public List<AirStationDto> getStations() {
-
         return airService.getStations();
-
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/station/{stationId}")
+    public AirIndexDto getStations(@PathVariable("stationId") Long stationId) throws AirNotFoundException {
+        return airService.getIndex(stationId);
     }
 }

@@ -1,7 +1,8 @@
 package com.crud.smog.air.client;
 
 import com.crud.smog.air.service.UrlFactory;
-import com.crud.smog.domain.AirStationDto;
+import com.crud.smog.air.domain.AirIndexDto;
+import com.crud.smog.air.domain.AirStationDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +33,13 @@ public class AirClient {
         }
     }
 
+    public AirIndexDto getIndex(Long stationId) {
+        try {
+            Optional<AirIndexDto> response = Optional.ofNullable(restTemplate.getForObject(urlFactory.getIndex(stationId), AirIndexDto.class));
+            return response.orElse(new AirIndexDto());
+        } catch (RestClientException e) {
+            LOGGER.error(e.getMessage(), e);
+            return new AirIndexDto();
+        }
+    }
 }
