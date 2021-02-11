@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class GoogleClient {
     @Autowired
     private GoogleUrlFactory googleUrlFactory;
-    public String getUserUrl() {
-        return googleUrlFactory.getUserUrl().toString();
+    public String getUserUrl(Long userId) {
+        return googleUrlFactory.getUserUrl(userId).toString();
     }
 }

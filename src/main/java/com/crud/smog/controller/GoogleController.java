@@ -4,11 +4,10 @@ import com.crud.smog.domain.UserEntity;
 import com.crud.smog.google.client.GoogleClient;
 import com.crud.smog.google.config.GoogleConfig;
 import com.crud.smog.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,16 +16,17 @@ import java.net.URL;
 @RestController
 @RequestMapping("/v1/smog")
 public class GoogleController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GoogleController.class);
 
     @Autowired
     private GoogleClient googleClient;
-    @Autowired
-    private UserRepository userRepository;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/map")
-    public URL getMapForUser() throws MalformedURLException {
-        UserEntity result = userRepository.retrieveUserById(33L);
-        System.out.println(result.getAddressProvince());
-        return new URL (googleClient.getUserUrl());
+
+    @RequestMapping(method = RequestMethod.GET, value = "/map/{userId}")
+    public URL getMapForUser(@PathVariable("userId") Long userId) throws MalformedURLException {
+        LOGGER.info("GoogleController -> getMapForUser; user's Id:" + userId);
+
+
+        return new URL (googleClient.getUserUrl(userId));
     }
 }

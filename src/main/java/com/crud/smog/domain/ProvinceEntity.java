@@ -6,7 +6,11 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
-
+@NamedNativeQuery(
+        name = "ProvinceEntity.retrieveProvinceByName",
+        query = "SELECT * FROM PROVINCE WHERE PROVINCE_NAME=:PROVINCENAME",
+        resultClass = ProvinceEntity.class
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
