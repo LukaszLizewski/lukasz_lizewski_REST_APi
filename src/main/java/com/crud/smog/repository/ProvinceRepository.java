@@ -1,7 +1,6 @@
 package com.crud.smog.repository;
 
 import com.crud.smog.domain.ProvinceEntity;
-import com.crud.smog.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

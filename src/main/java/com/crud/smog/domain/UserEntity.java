@@ -34,9 +34,4 @@ public class UserEntity {
 
     @Column (name = "ADDRESS_PROVINCE")
     private String addressProvince;
-
-    // usuwamy realcją 1 do 1
-    /*@OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "PROVINCE_ID")
-    private ProvinceEntity provinceEntity;*/
 }
