@@ -1,3 +1,4 @@
+/*
 package com.crud.smog.service;
 
 import com.crud.smog.config.DbConfig;
@@ -34,3 +35,4 @@ public class DbManager {
     }
 }
 
+*/

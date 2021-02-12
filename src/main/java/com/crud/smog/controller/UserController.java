@@ -2,7 +2,6 @@ package com.crud.smog.controller;
 
 import com.crud.smog.domain.UserDto;
 import com.crud.smog.mapper.UserMapper;
-import com.crud.smog.service.DbManager;
 import com.crud.smog.service.DbUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +46,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/user/updateUser", consumes = APPLICATION_JSON_VALUE)
     public UserDto updateUser(@RequestBody UserDto userDto) throws SQLException {
-        upDateProvince();
+//        upDateProvince();
         LOGGER.info("UserController -> updateUser; user's Id:" + userDto.getId());
         return userMapper.mapToUserDto(dbUserService.saveUserEntity(userMapper.mapToUser(userDto)));
     }
@@ -55,14 +54,13 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "/user/createUser", consumes = APPLICATION_JSON_VALUE)
     public void createUser(@RequestBody UserDto userDto) {
         dbUserService.saveUserEntity(userMapper.mapToUser(userDto));
-        //upDateProvince(); //update table with id of provinces
         LOGGER.info("UserController -> createUser");
     }
 
-    private void upDateProvince() throws SQLException { // tę metodę przenieść do innej klasy
+    /*private void upDateProvince() throws SQLException { // tę metodę przenieść do innej klasy
         DbManager dbManager = DbManager.getInstance();
         String sqlUpdate = "CALL lukasz_lizewski_api.UpdateUsers();";
         Statement statement = dbManager.getConnection().createStatement();
         statement.executeUpdate(sqlUpdate);
-    }
+    }*/
 }

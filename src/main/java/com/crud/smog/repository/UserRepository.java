@@ -21,6 +21,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAll ();
     @Override
     void deleteById (Long id);
+    @Override
+    long count();
     @Query
     UserEntity retrieveUserById(@Param("USERID") Long userId);
 }

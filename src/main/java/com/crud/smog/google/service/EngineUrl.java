@@ -26,12 +26,12 @@ public class EngineUrl {
     private AirMapper airMapper;
     @Autowired
     private AirClient airClient;
-    private static final String INDEX_0_COLOR= "0x0099FF";
+    private static final String INDEX_0_COLOR= "0x00CCFF";
     private static final String INDEX_1_COLOR= "0x00FF33";
-    private static final String INDEX_2_COLOR= "0x99FF33";
-    private static final String INDEX_3_COLOR= "0xFFFF33";
-    private static final String INDEX_4_COLOR= "0xFF9900";
-    private static final String INDEX_5_COLOR= "0xFF3300";
+    private static final String INDEX_2_COLOR= "0xCCFF00";
+    private static final String INDEX_3_COLOR= "0xFF9900";
+    private static final String INDEX_4_COLOR= "0xFF0033";
+    private static final String INDEX_5_COLOR= "0x6633CC";
     private static final String INDEX_6_COLOR= "0x999999";
     private static final String MARKER_COLOR= "black";
     private static final double RADIUS= 0.15;
@@ -45,7 +45,7 @@ public class EngineUrl {
     }
     protected String getUserMarker(Long userId){
         UserEntity userEntity = getUserEntity(userId);
-        return "&markers=color:"+MARKER_COLOR+"|size:tiny|"+userEntity.getAddressCity()+userEntity.getAddressStreet();
+        return "&markers=color:"+MARKER_COLOR+"|size:tiny|"+userEntity.getAddressCity();
     }
 
     protected String getProvinceCenter(String provinceName) {
@@ -58,7 +58,9 @@ public class EngineUrl {
     protected String createOctagonsUrl(String provinceName) {
         ProvinceEntity province = getProvinceEntity(provinceName);
         List<AirStation> list = airMapper.mapToListAirStation(airClient.getStations());
+        System.out.println("list: "+list.size());
         List<AirStation> filteredList = getFilteredStations(list, province.getLatitudeNW(), province.getLatitudeSW(), province.getLongitudeSE(), province.getLongitudeSW());
+        System.out.println("filtered list: "+filteredList.size());
         Map<AirStation, AirIndex> map = new HashMap<>();
         for (AirStation station: filteredList) {
             map.put(station,airMapper.mapToAirIndex(airClient.getIndex(station.getId())));

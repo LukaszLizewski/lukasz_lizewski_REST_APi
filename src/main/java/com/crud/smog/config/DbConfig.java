@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class DbConfig {
-    @Value("${sql.data.username}")
+    @Value("${spring.datasource.username}")
     private String userName;
-    @Value("${sql.data.password}")
+    @Value("${spring.datasource.password}")
     private String userPassword;
-    @Value("${sql.data.url}")
+    @Value("${spring.datasource.url}")
     private String url;
 }
