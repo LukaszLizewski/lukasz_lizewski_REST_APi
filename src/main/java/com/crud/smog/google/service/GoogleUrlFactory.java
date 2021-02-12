@@ -10,7 +10,7 @@ import java.net.URI;
 @Component
 public class GoogleUrlFactory {
     @Autowired
-    private Engine engine;
+    private EngineUrl engineUrl;
     @Autowired
     private GoogleConfig googleConfig;
 
@@ -22,11 +22,12 @@ public class GoogleUrlFactory {
 
         return UriComponentsBuilder.fromHttpUrl(googleConfig.getGoogleApiEndpoint())
                 .queryParam("key", googleConfig.getGoogleApiKey())
-                .queryParam("center", engine.getProvinceCenter(engine.getUserEntity(userId).getAddressProvince()))
+                .queryParam("center", engineUrl.getProvinceCenter(engineUrl.getUserEntity(userId).getAddressProvince()))
                 .queryParam("zoom", ZOOM)
                 .queryParam("size", SIZE)
                 .queryParam("scale", SCALE)
-                .query(engine.createOctagonsUrl(engine.getUserEntity(userId).getAddressProvince()))
+                .query(engineUrl.getUserMarker(userId))
+                .query(engineUrl.createOctagonsUrl(engineUrl.getUserEntity(userId).getAddressProvince()))
                 .build().encode().toUri();
     }
 

@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-public class Engine {
+public class EngineUrl {
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -33,6 +33,7 @@ public class Engine {
     private static final String INDEX_4_COLOR= "0xFF9900";
     private static final String INDEX_5_COLOR= "0xFF3300";
     private static final String INDEX_6_COLOR= "0x999999";
+    private static final String MARKER_COLOR= "black";
     private static final double RADIUS= 0.15;
 
     protected UserEntity getUserEntity(Long userId) {
@@ -41,6 +42,10 @@ public class Engine {
 
     private ProvinceEntity getProvinceEntity(String provinceName) {
         return provinceRepository.retrieveProvinceByName(provinceName);
+    }
+    protected String getUserMarker(Long userId){
+        UserEntity userEntity = getUserEntity(userId);
+        return "&markers=color:"+MARKER_COLOR+"|size:tiny|"+userEntity.getAddressCity()+userEntity.getAddressStreet();
     }
 
     protected String getProvinceCenter(String provinceName) {
@@ -54,15 +59,10 @@ public class Engine {
         ProvinceEntity province = getProvinceEntity(provinceName);
         List<AirStation> list = airMapper.mapToListAirStation(airClient.getStations());
         List<AirStation> filteredList = getFilteredStations(list, province.getLatitudeNW(), province.getLatitudeSW(), province.getLongitudeSE(), province.getLongitudeSW());
-
-        System.out.println(">>>lista stacji przed filtracją>>>"+ list.size());
-        System.out.println(">>>lista stacji po filtracją>>>"+filteredList.size());
-
         Map<AirStation, AirIndex> map = new HashMap<>();
         for (AirStation station: filteredList) {
             map.put(station,airMapper.mapToAirIndex(airClient.getIndex(station.getId())));
         }
-
         StringBuilder resultUrl= new StringBuilder();
 
         double [][] pointsTable = new double [9][2];
@@ -71,11 +71,6 @@ public class Engine {
         int indexNo;
 
         for (Map.Entry<AirStation, AirIndex> entryUrl : map.entrySet()){
-            System.out.println(entryUrl.getKey().getId());
-            System.out.println(entryUrl.getValue().getStIndexLevel().getId());
-            System.out.println(entryUrl.getValue().getStIndexLevel().getIndexLevelName());
-            System.out.println(entryUrl.getKey().getStationName());
-
             indexNo = Math.toIntExact(entryUrl.getValue().getStIndexLevel().getId());
             centerLat = entryUrl.getKey().getGegrLat();
             centerLon = entryUrl.getKey().getGegrLon();
@@ -114,7 +109,6 @@ public class Engine {
                 colorResultUrl=INDEX_6_COLOR;
         }
         return colorResultUrl;
-
     }
     private List<AirStation> getFilteredStations(List<AirStation> list, double latitudeMax, double latitudeMin, double longitudeMax, double longitudeMin) {
         return list.stream()
