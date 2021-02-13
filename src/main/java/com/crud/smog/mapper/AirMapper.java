@@ -15,18 +15,7 @@ public class AirMapper {
                         e.getGegrLon()))
                 .collect(Collectors.toList());
     }
-    public List<AirStationDto> mapToListAirStationDto (List<AirStation> stationsList ) {
-        return stationsList.stream()
-                .map(e -> new AirStationDto(e.getId(),
-                        e.getStationName(),
-                        e.getGegrLat(),
-                        e.getGegrLon()))
-                .collect(Collectors.toList());
-    }
     public AirIndex mapToAirIndex (AirIndexDto airIndexDto) {
         return new AirIndex(airIndexDto.getId(),new AirStationIndex(airIndexDto.getStIndexLevel().getId(),airIndexDto.getStIndexLevel().getIndexLevelName()));
-    }
-    public AirIndexDto mapToAirIndexDto (AirIndexDto airIndex) {
-        return new AirIndexDto(airIndex.getId(),new AirStationIndexDto(airIndex.getStIndexLevel().getId(),airIndex.getStIndexLevel().getIndexLevelName()));
     }
 }

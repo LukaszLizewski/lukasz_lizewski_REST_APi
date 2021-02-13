@@ -33,7 +33,6 @@ public class MailCreatorService {
     @Autowired
     private AirMapper airMapper;
 
-
     public String buildSchedulerEmail() {
 
         List<UserEntity> listOfUsers  = userRepository.findAll();
