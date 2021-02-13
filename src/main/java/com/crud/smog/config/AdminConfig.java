@@ -13,4 +13,6 @@ public class AdminConfig {
     private String adminName;
     @Value("${admin.project.name}")
     private String adminProjectName;
+    @Value("${admin.project.url}")
+    private String adminProjectUrl;
 }

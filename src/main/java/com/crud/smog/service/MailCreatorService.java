@@ -1,6 +1,9 @@
 package com.crud.smog.service;
 
 import com.crud.smog.air.client.AirClient;
+import com.crud.smog.air.domain.AirIndex;
+import com.crud.smog.air.domain.AirStation;
+import com.crud.smog.air.domain.AirStationDto;
 import com.crud.smog.config.AdminConfig;
 import com.crud.smog.domain.UserEntity;
 import com.crud.smog.mapper.AirMapper;
@@ -11,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,18 +35,29 @@ public class MailCreatorService {
 
 
     public String buildSchedulerEmail() {
+
+        List<UserEntity> listOfUsers  = userRepository.findAll();
+
+        List<AirStation> airStations = airMapper.mapToListAirStation(airClient.getStations());
+        Map<AirStation, AirIndex> map = new HashMap<>();
+        for (AirStation station: airStations) {
+            System.out.println("Sending request to: " + station.getStationName());
+            map.put(station,airMapper.mapToAirIndex(airClient.getIndex(station.getId())));
+        }
         String builder = "";
-        List<String> listOfUsers  = userRepository.findAll().stream()
-                .map(e-> builder.concat(e.getFirstName()).concat(" ").concat(e.getLastName()))
+        List<String> listOfStations  = map.entrySet().stream()
+                .map(e-> builder.concat(e.getKey().getStationName()).concat("- quality of air: ").concat(e.getValue().getStIndexLevel().getIndexLevelName()))
                 .collect(Collectors.toList());
 
         Context context = new Context();
         context.setVariable("message", "Information about REST_APi");
-        context.setVariable("project_url", "http://google.pl");
+        context.setVariable("project_url", adminConfig.getAdminProjectUrl());
         context.setVariable("button", "Visit the project");
         context.setVariable("project_name", adminConfig.getAdminProjectName());
         context.setVariable("admin_object", adminConfig);
         context.setVariable("users_list", listOfUsers);
+        context.setVariable("stations_list", listOfStations);
+        context.setVariable("creator", adminConfig.getAdminName());
         return templateEngine.process("mail/scheduled-mail", context);
     }
 
