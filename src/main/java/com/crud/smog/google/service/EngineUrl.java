@@ -26,6 +26,7 @@ public class EngineUrl {
     private AirMapper airMapper;
     @Autowired
     private AirClient airClient;
+
     private static final String INDEX_0_COLOR= "0x00CCFF";
     private static final String INDEX_1_COLOR= "0x00FF33";
     private static final String INDEX_2_COLOR= "0xCCFF00";

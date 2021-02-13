@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailScheduler {
-    @Autowired
-    private UserRepository userRepository;
+
     @Autowired
     private AdminConfig adminConfig;
     @Autowired
@@ -21,12 +20,10 @@ public class EmailScheduler {
 
     @Scheduled(fixedDelay = 100000) /*(cron = "0 0 10 * * *")*/
     public void sendInformationEmail() {
-        long size = userRepository.count();
-        String wordUser = (size!=1) ? " users.":" user.";
+
         emailService.send(new Mail(
                 adminConfig.getAdminMail(),
-                SUBJECT,
-                "Currently in database you got: " + size + wordUser)
+                SUBJECT)
         );
     }
 }

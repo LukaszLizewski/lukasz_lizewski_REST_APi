@@ -11,6 +11,7 @@ import java.net.URI;
 public class AirUrlFactory {
     @Autowired
     private AirConfig airConfig;
+
     public URI getUrlFindAll() {
         return UriComponentsBuilder.fromHttpUrl(airConfig.getAirApiEndpointStation() + "/findAll")
                 .build().encode().toUri();

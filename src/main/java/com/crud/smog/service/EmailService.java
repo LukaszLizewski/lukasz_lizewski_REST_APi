@@ -17,6 +17,8 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+    @Autowired
+    private MailCreatorService mailCreatorService;
 
     public void send(Mail mail) {
         LOGGER.info("Starting email preparation.");
@@ -33,7 +35,7 @@ public class EmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
                 messageHelper.setTo(mail.getMailTo());
                 messageHelper.setSubject(mail.getSubject());
-                messageHelper.setText(mail.getMessage(), true);
+                messageHelper.setText(mailCreatorService.buildSchedulerEmail(), true);
         };
     }
 }

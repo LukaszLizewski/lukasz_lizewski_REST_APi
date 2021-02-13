@@ -1,3 +1,4 @@
+/*
 package com.crud.smog.air.service;
 
 import com.crud.smog.air.client.AirClient;
@@ -24,3 +25,4 @@ public class AirService {
         return airClient.getIndex(stationId);
     }
 }
+*/
