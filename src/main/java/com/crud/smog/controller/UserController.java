@@ -54,11 +54,4 @@ public class UserController {
         dbUserService.saveUserEntity(userMapper.mapToUser(userDto));
         LOGGER.info("UserController -> createUser");
     }
-
-    /*private void upDateProvince() throws SQLException { // tę metodę przenieść do innej klasy
-        DbManager dbManager = DbManager.getInstance();
-        String sqlUpdate = "CALL lukasz_lizewski_api.UpdateUsers();";
-        Statement statement = dbManager.getConnection().createStatement();
-        statement.executeUpdate(sqlUpdate);
-    }*/
 }

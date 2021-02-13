@@ -2,7 +2,6 @@ package com.crud.smog.scheduler;
 
 import com.crud.smog.config.AdminConfig;
 import com.crud.smog.domain.Mail;
-import com.crud.smog.repository.UserRepository;
 import com.crud.smog.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

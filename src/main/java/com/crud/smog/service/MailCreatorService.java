@@ -35,8 +35,21 @@ public class MailCreatorService {
 
     public String buildSchedulerEmail() {
 
-        List<UserEntity> listOfUsers  = userRepository.findAll();
-
+        Context context = new Context();
+        context.setVariable("message", "Information about REST_APi");
+        context.setVariable("project_url", adminConfig.getAdminProjectUrl());
+        context.setVariable("button", "Visit the project TEMP");
+        context.setVariable("project_name", adminConfig.getAdminProjectName());
+        context.setVariable("admin_object", adminConfig);
+        context.setVariable("users_list", getListOfUsers());
+        context.setVariable("stations_list", getListOfStations());
+        context.setVariable("creator", adminConfig.getAdminName());
+        return templateEngine.process("mail/scheduled-mail", context);
+    }
+    private List<UserEntity> getListOfUsers(){
+        return userRepository.findAll();
+    }
+    private List<String> getListOfStations(){
         List<AirStation> airStations = airMapper.mapToListAirStation(airClient.getStations());
         Map<AirStation, AirIndex> map = new HashMap<>();
         for (AirStation station: airStations) {
@@ -47,17 +60,7 @@ public class MailCreatorService {
         List<String> listOfStations  = map.entrySet().stream()
                 .map(e-> builder.concat(e.getKey().getStationName()).concat("- quality of air: ").concat(e.getValue().getStIndexLevel().getIndexLevelName()))
                 .collect(Collectors.toList());
-
-        Context context = new Context();
-        context.setVariable("message", "Information about REST_APi");
-        context.setVariable("project_url", adminConfig.getAdminProjectUrl());
-        context.setVariable("button", "Visit the project");
-        context.setVariable("project_name", adminConfig.getAdminProjectName());
-        context.setVariable("admin_object", adminConfig);
-        context.setVariable("users_list", listOfUsers);
-        context.setVariable("stations_list", listOfStations);
-        context.setVariable("creator", adminConfig.getAdminName());
-        return templateEngine.process("mail/scheduled-mail", context);
+        return listOfStations;
     }
 
 }
