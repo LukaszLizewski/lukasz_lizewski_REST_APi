@@ -1,9 +1,6 @@
 package com.crud.smog.controller;
 
-import com.crud.smog.domain.UserEntity;
 import com.crud.smog.google.client.GoogleClient;
-import com.crud.smog.google.config.GoogleConfig;
-import com.crud.smog.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

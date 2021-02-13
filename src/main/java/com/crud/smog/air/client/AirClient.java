@@ -32,7 +32,6 @@ public class AirClient {
             return new ArrayList<>();
         }
     }
-
     public AirIndexDto getIndex(Long stationId) {
         try {
             Optional<AirIndexDto> response = Optional.ofNullable(restTemplate.getForObject(airUrlFactory.getIndex(stationId), AirIndexDto.class));
