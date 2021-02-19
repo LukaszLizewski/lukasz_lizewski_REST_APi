@@ -8,10 +8,8 @@ import com.crud.smog.domain.ProvinceEntity;
 import com.crud.smog.domain.UserEntity;
 import com.crud.smog.mapper.AirMapper;
 import com.crud.smog.repository.ProvinceRepository;
-import com.crud.smog.repository.UserRepository;
 import com.crud.smog.service.DbUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

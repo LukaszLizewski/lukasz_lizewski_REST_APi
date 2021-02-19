@@ -29,10 +29,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-mail:2.3.5.RELEASE')
 
 //	LOCAL
-//	compile('mysql:mysql-connector-java')
+	compile('mysql:mysql-connector-java')
 
 //	HEROKU
-	compile('org.postgresql:postgresql')
+//	compile('org.postgresql:postgresql')
 
 
 
