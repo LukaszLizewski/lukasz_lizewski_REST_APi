@@ -2,6 +2,7 @@ package com.crud.smog.air.service;
 
 import com.crud.smog.air.config.AirConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 

@@ -1,5 +1,6 @@
 package com.crud.smog.google.service;
 
+import com.crud.smog.controller.UserNotFoundException;
 import com.crud.smog.google.config.GoogleConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class GoogleUrlFactory {
     private static final int SCALE = 2;
     private static final String SIZE = "1000x500";
 
-    public URI getUserUrl(Long userId) {
+    public URI getUserUrl(Long userId) throws UserNotFoundException {
 
         return UriComponentsBuilder.fromHttpUrl(googleConfig.getGoogleApiEndpoint())
                 .queryParam("key", googleConfig.getGoogleApiKey())

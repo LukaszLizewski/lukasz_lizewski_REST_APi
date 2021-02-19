@@ -18,12 +18,9 @@ public class GoogleController {
     @Autowired
     private GoogleClient googleClient;
 
-
     @RequestMapping(method = RequestMethod.GET, value = "/map/{userId}")
-    public URL getMapForUser(@PathVariable("userId") Long userId) throws MalformedURLException {
+    public URL getMapForUser(@PathVariable("userId") Long userId) throws MalformedURLException, UserNotFoundException {
         LOGGER.info("GoogleController -> getMapForUser; user's Id:" + userId);
-
-
         return new URL (googleClient.getUserUrl(userId));
     }
 }

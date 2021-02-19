@@ -3,12 +3,15 @@ package com.crud.smog.google.service;
 import com.crud.smog.air.client.AirClient;
 import com.crud.smog.air.domain.AirIndex;
 import com.crud.smog.air.domain.AirStation;
+import com.crud.smog.controller.UserNotFoundException;
 import com.crud.smog.domain.ProvinceEntity;
 import com.crud.smog.domain.UserEntity;
 import com.crud.smog.mapper.AirMapper;
 import com.crud.smog.repository.ProvinceRepository;
 import com.crud.smog.repository.UserRepository;
+import com.crud.smog.service.DbUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -19,7 +22,7 @@ import java.util.stream.Collectors;
 @Component
 public class EngineUrl {
     @Autowired
-    private UserRepository userRepository;
+    private DbUserService userRepository;
     @Autowired
     private ProvinceRepository provinceRepository;
     @Autowired
@@ -37,14 +40,14 @@ public class EngineUrl {
     private static final String MARKER_COLOR= "black";
     private static final double RADIUS= 0.15;
 
-    protected UserEntity getUserEntity(Long userId) {
-        return userRepository.retrieveUserById(userId);
+    protected UserEntity getUserEntity(Long userId) throws UserNotFoundException  {
+        return userRepository.getUser(userId).orElseThrow(UserNotFoundException::new);
     }
 
     private ProvinceEntity getProvinceEntity(String provinceName) {
         return provinceRepository.retrieveProvinceByName(provinceName);
     }
-    protected String getUserMarker(Long userId){
+    protected String getUserMarker(Long userId) throws UserNotFoundException {
         UserEntity userEntity = getUserEntity(userId);
         return "&markers=color:"+MARKER_COLOR+"|size:tiny|"+userEntity.getAddressCity();
     }

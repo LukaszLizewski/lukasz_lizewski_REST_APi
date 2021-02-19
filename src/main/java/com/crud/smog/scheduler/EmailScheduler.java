@@ -17,7 +17,7 @@ public class EmailScheduler {
 
     private static final String SUBJECT = "Lukasz_Lizewski_Smog_REST_APi, daily information";
 
-    @Scheduled(cron = "0 0 10 * * *")
+    @Scheduled/*(cron = "0 0 10 * * *")*/(fixedDelay = 1000000 )
     public void sendInformationEmail() {
 
         emailService.send(new Mail(

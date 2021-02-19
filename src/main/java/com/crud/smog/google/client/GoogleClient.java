@@ -1,14 +1,15 @@
 package com.crud.smog.google.client;
 
-import com.crud.smog.google.service.GoogleUrlFactory;
+import com.crud.smog.controller.UserNotFoundException;
+import com.crud.smog.google.service.GoogleFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GoogleClient {
     @Autowired
-    private GoogleUrlFactory googleUrlFactory;
-    public String getUserUrl(Long userId) {
-        return googleUrlFactory.getUserUrl(userId).toString();
+    private GoogleFacade googleFacade;
+    public String getUserUrl(Long userId) throws UserNotFoundException {
+        return googleFacade.getUserUrl(userId).toString();
     }
 }
