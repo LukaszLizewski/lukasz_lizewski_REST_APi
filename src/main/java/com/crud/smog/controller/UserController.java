@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-
 import java.util.List;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -30,7 +28,7 @@ public class UserController {
         return userMapper.mapToUserDto(dbUserService.getUser(userId).orElseThrow(UserNotFoundException::new));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/user/")
+    @RequestMapping(method = RequestMethod.GET, value = "/user")
     public List<UserDto> getUsers() {
         LOGGER.info("UserController -> getUsers");
         return userMapper.mapToUserListDto(dbUserService.getListOfUsers());
@@ -43,8 +41,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/user/updateUser", consumes = APPLICATION_JSON_VALUE)
-    public UserDto updateUser(@RequestBody UserDto userDto) throws SQLException {
-//        upDateProvince();
+    public UserDto updateUser(@RequestBody UserDto userDto)  {
         LOGGER.info("UserController -> updateUser; user's Id:" + userDto.getId());
         return userMapper.mapToUserDto(dbUserService.saveUserEntity(userMapper.mapToUser(userDto)));
     }
