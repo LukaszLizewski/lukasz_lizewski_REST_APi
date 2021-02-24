@@ -1,0 +1,10 @@
+Niestety nie wykonałem projektu zgodnie z wymaganiami Kodilli (nie wszystkie warunki są spełnione) ale pilnie powtarzam materiał i uczę się do umówionych rozmów o pracę. 
+Proszę trzymać kciuki. 
+Poniżej instrukcja uruchomienia projektu. 
+Back end działa wg mnie wyśmienicie ale wiadomo dla profesjonalnego programisty/ programistki może być po prostu słaby… 
+ Deployment backendu: 
+https://github.com/LukaszLizewski/lukasz_lizewski_REST_APi/tree/d799becb70ea1064273aff1e3d022d0991341856
+Back end działa również na serwerze Heroku pod adresem:
+https://floating-shore-50400.herokuapp.com/
+Frontend działa lokalnie ale nie chce działać na heroku(jeszcze nie wiem dlaczego):
+https://github.com/LukaszLizewski/lukasz_lizewski_APi_FrontEnd/tree/ 3c89ecd2c788d2366f87c0a2aa58a0b9ec8afb90
